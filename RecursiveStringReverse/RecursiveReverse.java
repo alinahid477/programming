@@ -2,11 +2,7 @@ import java.util.Arrays;
 
 public class RecursiveReverse {
 
-    private class ListNode {
-        int val;
-        ListNode next;
-        ListNode(int x) { val = x; }
-    }
+    
 
 
     public static void main(String[] argv) {
@@ -17,14 +13,7 @@ public class RecursiveReverse {
         arr = new RecursiveReverse().reverseRecursionArr(arr, 0, arr.length-1);
         System.out.println(Arrays.toString(arr));
 
-        ListNode head = null;
-        int[] vals = new int[] {1,2,3,4};
-        RecursiveReverse rr = new RecursiveReverse();
-        head  = rr.buildLinkedListFromArray(vals, 0, head);
-        rr.printLinkedList(head);
-        head = rr.swapPairs(head);
-        System.out.println("Head:"+head.val);
-        rr.printLinkedList(head);
+        
     }
 
     private String reverseRecursion(String str) {
@@ -56,41 +45,5 @@ public class RecursiveReverse {
         return new String(newStr);
     }
 
-    private ListNode buildLinkedListFromArray(int[] vals, int index, ListNode head) {
-        head = new ListNode(vals[index]);
-        if(vals.length - 1 <= index) {
-            return head;
-        }
-        head.next = buildLinkedListFromArray(vals, index+1, head.next);
-        return head;
-    }
-
-    private void printLinkedList(ListNode head) {
-        if(head == null) return;
-        System.out.print(head.val);
-        if(head.next == null) {
-            return;
-        }        
-        System.out.print("->");
-        printLinkedList(head.next);
-    }
-
-    private ListNode swapPairs(ListNode head) {
-        if(head == null || head.next == null) {
-            return head;
-        }
-        ListNode firstNode = swapNode(head, head.next);
-        if(firstNode.next.next == null) {
-            return firstNode;
-        }
-        firstNode.next.next = swapPairs(firstNode.next.next);
-        return firstNode;
-    }
-
-    private ListNode swapNode(ListNode a, ListNode b) {
-        ListNode tmp = a;
-        a.next = b.next;
-        b.next = tmp;
-        return b;
-    }
+    
 }
