@@ -2,6 +2,7 @@
 <classpath>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="src" path="LinkedListOps"/>
+	<classpathentry kind="src" path="BinarySearchTree"/>
 	<classpathentry kind="src" path="RecursiveStringReverse"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
