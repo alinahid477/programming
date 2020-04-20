@@ -4,5 +4,6 @@
 	<classpathentry kind="src" path="LinkedListOps"/>
 	<classpathentry kind="src" path="BinarySearchTree"/>
 	<classpathentry kind="src" path="RecursiveStringReverse"/>
+	<classpathentry kind="src" path="PascalTriangle"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

@@ -7,20 +7,59 @@ public class BST {
     
     public static void main(String[] args) {
         BST bst = new BST();
-        TreeNode head = bst.insertValue(null, 20);
-        head = bst.insertValue(head, 15);
-        head = bst.insertValue(head, 30);
-        head = bst.insertValue(head, 21);
-        head = bst.insertValue(head, 31);
-        head = bst.insertValue(head, 10);
-        head = bst.insertValue(head, 16);
-        head = bst.insertValue(head, 9);
-        head = bst.insertValue(head, 11);
-        head = bst.insertValue(head, 18);
-        head = bst.insertValue(head, 19);
+        TreeNode head = null;
+        int[] vals1 = {20,15,30,21,31,10,16,9,11,18,19};
+        for(int i=0; i< vals1.length; i++) {
+            head = bst.insertValue(head, vals1[i]);
+        }
         int height = bst.maxDepth(head);
         System.out.println(height);
         bst.prettyPrintTree(head);
+
+
+        int[] vals2 = {5,3,6,2,4};
+        head = null;
+        for(int i=0; i< vals2.length; i++) {
+            head = bst.insertValue(head, vals2[i]);
+        }
+        int maxWidthIncludingNull = bst.maxWidthIncludingNull(head);
+        System.out.println(maxWidthIncludingNull);
+    }
+
+    public int[] searchNode(TreeNode head, int val) {
+        TreeNode node = this.findNode(head, val);
+        if(node == null) {
+            return new int[0];
+        }
+        Map<Integer,Integer> treeMap = new HashMap<>();
+        this.getSubtree(node, treeMap, 0);
+        int[] treeInArr = new int[treeMap.size()];
+        for(int i=0; i<treeInArr.length; i++) {
+            treeInArr[i] = treeMap.get(i);
+        }
+        return treeInArr;    
+    }
+
+    public TreeNode findNode(TreeNode head, int val) {
+        if(head == null) {
+            return null;
+        } else if(head.val == val) {
+            return head;
+        }
+        TreeNode node = findNode(head.left, val);
+        if(node == null) {
+            node = findNode(head.right, val);
+        }
+        return node;
+    }
+
+    public void getSubtree(TreeNode node, Map<Integer, Integer> treeMap, int position) {
+        if(node == null) {
+            return;
+        }
+        treeMap.put(position, node.val);
+        getSubtree(node.left, treeMap, position*2);
+        getSubtree(node.right, treeMap, position*2 + 1);
     }
 
     public Map<String, TreeNode> getInsertPosition(TreeNode head, int newVal) {
@@ -112,20 +151,38 @@ public class BST {
         }
     }
 
+    public int maxWidthIncludingNull(TreeNode node) {
+        Map<Integer, Integer> leftmostPositionAtLevel = new HashMap<>();
+        int width = 0;
+        getMaxWidthIncludingNull(node, 0, 1, width, leftmostPositionAtLevel);
+        return width;
+    }
+
+    public void getMaxWidthIncludingNull(TreeNode node, int level, int position, int width, Map<Integer, Integer> leftmostPositionAtLevel) {
+        if(node == null) {
+            return;
+        }
+        leftmostPositionAtLevel.computeIfAbsent(level, x->position);
+        width = Math.max(width, position - leftmostPositionAtLevel.get(level) );
+        this.getMaxWidthIncludingNull(node.left, level+1, position * 2, width, leftmostPositionAtLevel);
+        this.getMaxWidthIncludingNull(node.right, level+1, position * 2 + 1, width, leftmostPositionAtLevel);
+    }
+
     public int[][] getPrintArr(TreeNode node) {
         int level = 0;
         int height = this.maxDepth(node);
         int maxPossibleWidth = (int)Math.pow(2, height);
         int[][] printArr = new int[height][maxPossibleWidth];
-
+        int gapCount = 0;
         boolean isFirstElement = false;
         Queue<TreeNode> q = new LinkedList<>();
         q.add(node);
         while(level < height) {
             int totalElementsAtThisLevel = q.size();
-            int qsize = q.size();
+            //int qsize = q.size();
             level += 1;
             isFirstElement = true;
+            gapCount=0;
             while(totalElementsAtThisLevel > 0) {
                 totalElementsAtThisLevel -= 1;
                 TreeNode tn = q.remove();
@@ -134,8 +191,9 @@ public class BST {
                     isFirstElement = false;
                     printArr[level-1][indent -1] = tn == null? -1 : tn.val;                    
                 } else {
-                    int gap = ((int)Math.pow(2, height-level+1));
-                    gap = gap * (qsize - totalElementsAtThisLevel);
+                    gapCount+=1;
+                    int gap = ((int)Math.pow(2, height-level+1)) * gapCount;
+                    //gap = gap * (qsize - totalElementsAtThisLevel);
                     printArr[level-1][indent+gap-1] = tn == null? -1 : tn.val;
                 } 
                 if (tn != null) {
