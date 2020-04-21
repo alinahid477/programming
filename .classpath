@@ -5,5 +5,6 @@
 	<classpathentry kind="src" path="BinarySearchTree"/>
 	<classpathentry kind="src" path="RecursiveStringReverse"/>
 	<classpathentry kind="src" path="PascalTriangle"/>
+	<classpathentry kind="src" path="randoms"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

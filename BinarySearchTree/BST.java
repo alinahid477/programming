@@ -12,9 +12,9 @@ public class BST {
         for(int i=0; i< vals1.length; i++) {
             head = bst.insertValue(head, vals1[i]);
         }
-        int height = bst.maxDepth(head);
+        int height = BST.maxDepth(head);
         System.out.println(height);
-        bst.prettyPrintTree(head);
+        BST.prettyPrintTree(head);
 
 
         int[] vals2 = {5,3,6,2,4};
@@ -101,14 +101,14 @@ public class BST {
         return head;
     }
     
-    public int maxDepth(TreeNode node) {
+    public static int maxDepth(TreeNode node) {
         if(node == null) {
             return 0;
         }
 
-        int lDepth = this.maxDepth(node.left);
+        int lDepth = BST.maxDepth(node.left);
         lDepth += 1;
-        int rDepth = this.maxDepth(node.right);
+        int rDepth = BST.maxDepth(node.right);
         rDepth += 1;
 
         int max = Math.max(lDepth, rDepth);
@@ -136,8 +136,8 @@ public class BST {
         return max;
     }
     
-    public void prettyPrintTree(TreeNode node) {
-        int[][] treeInArr = this.getPrintArr(node);
+    public static void prettyPrintTree(TreeNode node) {
+        int[][] treeInArr = BST.getPrintArr(node);
         for(int i=0; i<treeInArr.length; i++) {
             System.out.println();
             for(int j=0;j<treeInArr[0].length; j++) {
@@ -168,9 +168,9 @@ public class BST {
         this.getMaxWidthIncludingNull(node.right, level+1, position * 2 + 1, width, leftmostPositionAtLevel);
     }
 
-    public int[][] getPrintArr(TreeNode node) {
+    public static int[][] getPrintArr(TreeNode node) {
         int level = 0;
-        int height = this.maxDepth(node);
+        int height = BST.maxDepth(node);
         int maxPossibleWidth = (int)Math.pow(2, height);
         int[][] printArr = new int[height][maxPossibleWidth];
         int gapCount = 0;
