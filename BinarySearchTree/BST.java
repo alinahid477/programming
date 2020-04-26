@@ -10,7 +10,7 @@ public class BST {
         TreeNode head = null;
         int[] vals1 = {20,15,30,21,31,10,16,9,11,18,19};
         for(int i=0; i< vals1.length; i++) {
-            head = bst.insertValue(head, vals1[i]);
+            head = BST.insertValue(head, vals1[i]);
         }
         int height = BST.maxDepth(head);
         System.out.println(height);
@@ -20,7 +20,7 @@ public class BST {
         int[] vals2 = {5,3,6,2,4};
         head = null;
         for(int i=0; i< vals2.length; i++) {
-            head = bst.insertValue(head, vals2[i]);
+            head = BST.insertValue(head, vals2[i]);
         }
         int maxWidthIncludingNull = bst.maxWidthIncludingNull(head);
         System.out.println(maxWidthIncludingNull);
@@ -62,7 +62,7 @@ public class BST {
         getSubtree(node.right, treeMap, position*2 + 1);
     }
 
-    public Map<String, TreeNode> getInsertPosition(TreeNode head, int newVal) {
+    public static Map<String, TreeNode> getInsertPosition(TreeNode head, int newVal) {
         if(head == null) {
             return null;
         }
@@ -86,8 +86,8 @@ public class BST {
         return getInsertPosition(head.right, newVal);
     }
 
-    public TreeNode insertValue(TreeNode head, int newVal) {
-        Map<String, TreeNode> pos =  this.getInsertPosition(head, newVal);
+    public static TreeNode insertValue(TreeNode head, int newVal) {
+        Map<String, TreeNode> pos =  BST.getInsertPosition(head, newVal);
         if(pos != null) {
             TreeNode newNode = new TreeNode(newVal);
             if(pos.containsKey("LEFT")) {

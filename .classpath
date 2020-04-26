@@ -6,5 +6,6 @@
 	<classpathentry kind="src" path="RecursiveStringReverse"/>
 	<classpathentry kind="src" path="PascalTriangle"/>
 	<classpathentry kind="src" path="randoms"/>
+	<classpathentry kind="src" path="JavaConcepts"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
